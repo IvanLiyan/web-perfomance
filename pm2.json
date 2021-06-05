@@ -1,0 +1,28 @@
+{
+	"apps": [
+		{
+			"name": "editor",
+			"script": "server/app.js",
+			"instances": "max",
+			"exec_mode": "cluster_mode",
+			"env": {
+				"NODE_ENV": "development",
+				"PORT": 3002
+			},
+			"env_test": {
+				"NODE_ENV": "development",
+				"PORT": 3002
+			},
+			"env_uat": {
+				"NODE_ENV": "uat",
+				"PORT": 3002
+			},
+			"env_production": {
+				"NODE_ENV": "production",
+				"PORT": 3002
+			},
+			"log_date_format": "YYYY-MM-DD_HH:mm Z",
+			"merge_logs": true
+		}
+	]
+}
