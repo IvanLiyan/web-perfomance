@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>性能测试</title>
+    <link rel="shortcut icon" href="https://web-data.zmlearn.com/image/pSUBctx9T3AA7pRbJ1pKKn/icon.png" type="image/x-icon" />
+    <!-- 引入 layui.css -->
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.7/dist/css/layui.css">
+    <!-- 引入 layui.js -->
+    <script src="//unpkg.com/layui@2.6.7/dist/layui.js"></script>
+    <script src='https://statics-lib.zmlearn.com/jquery/1.12.4/jquery.min.js'></script>
+</head>
+<body>
+  <div class="layui-container">  
+    <div class="layui-row title-box">
+      <div class="layui-col-md2 left"></div>
+      <div class="layui-col-md8 center">
+        <div class="title">性能测试</div>
+      </div>
+      <div class="layui-col-md2 right"></div>
+    </div>
+    <div class="layui-row content-box">
+      <div class="layui-col-md2 left"></div>
+      <div class="layui-col-md8 center">
+        <div class="center-wrapper">
+          <div class="layui-form">
+            <div style="display: flex;align-items: center;">
+              <div class="form-box">
+                <div class="layui-form-item">
+                  <label class="layui-form-label">页面地址</label>
+                  <div class="layui-input-block">
+                    <textarea placeholder="请以https开头输入测试页面地址,每个地址回车为一行" class="layui-textarea" autocomplete="off" type="text" name="url" required  lay-verify="required"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="layui-btn submit-btn">提交测试</div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-md2 right"></div>
+    </div>
+  </div>
+  <div class="layui-container contain-result">  
+    <div class="layui-row content-box">
+      <table id="testTable"></table>
+    </div>
+  </div>
+  <div class="loading-box">
+    <div class="loading">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <div>测试中...</div>
+    </div>
+  </div>
+</body>
+  <style>
+    body {
+      position: relative;
+    }
+    .layui-container{
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    .title-box {
+      height: 80px;
+    }
+      .title-box div {
+        height: 80px;
+        background: #009788;
+      }
+        .title-box .title {
+          padding-left: 50px;
+          width: 100%;
+          background: #009788;
+          color: #fff;
+          height: 80px;
+          line-height: 80px;
+          font-size: 34px;
+          font-weight: bold;
+        }
+    .content-box {
+      width: 100%;
+    }
+    .content-box .left,.right {
+        height: 300px;
+        background: #fff;
+      }
+    .content-box .center{
+      display: flex;
+      flex-direction: column;
+      padding: 25px 50px;
+      /* align-items: center; */
+    }
+    .content-box .center .center-wrapper {
+      margin-top: 20px;
+    }
+    .content-box .center .center-wrapper .layui-form {
+      position: relative;
+      /* display: flex;
+      justify-content: center;
+      flex-direction: column; */
+    }
+    .content-box .center .center-wrapper .layui-form .layui-form-item {
+      position: relative;
+    }
+    .content-box .center .center-wrapper .layui-form .layui-form-item .layui-form-label{
+      font-size: 18px;
+      color: #009788;
+      font-weight: bold;
+    }
+    .content-box .center .center-wrapper .addInput,.deleteInput{
+      position: absolute;
+      left: -20px;
+      top: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 20px;
+      text-align: center;
+      line-height: 18px;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-weight: bold;
+    }
+    .content-box .center .center-wrapper .layui-form .layui-form-item .layui-textarea{
+      font-size: 16px;
+      width: 1000px;
+      height: 150px;
+    }
+    .content-box .center .center-wrapper .layui-form .submit-btn{
+      margin-top: 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      width: 200px;
+      height: 50px;
+      line-height: 50px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .layui-table thead tr th .layui-table-cell span {
+      font-weight: bold;
+      font-size: 16px;
+      
+    }
+
+    .contain-result {
+      display: none;
+      margin-bottom: 50px;
+    }
+    .loading-box {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,.7);
+      z-index:9999;
+      left: 0;
+      top: 0;
+      display: none;
+    }
+    .loading{
+        position:absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 80px;
+        height: 40px;
+        }
+        .loading div {
+          color: #fff;
+          font-size: 20px;
+          margin-top: 30px;
+        }
+        .loading span{
+            display: inline-block;
+            width: 8px;
+            height: 100%;
+            border-radius: 4px;
+            background: lightgreen;
+            -webkit-animation: load 1s ease infinite;
+        }
+        @-webkit-keyframes load{
+            0%,100%{
+                height: 40px;
+                background: lightgreen;
+            }
+            50%{
+                height: 70px;
+                margin: -15px 0;
+                background: lightblue;
+            }
+        }
+        .loading span:nth-child(2){
+            -webkit-animation-delay:0.2s;
+        }
+        .loading span:nth-child(3){
+            -webkit-animation-delay:0.4s;
+        }
+        .loading span:nth-child(4){
+            -webkit-animation-delay:0.6s;
+        }
+        .loading span:nth-child(5){
+            -webkit-animation-delay:0.8s;
+        }
+  </style>
+  <script type="text/javascript">
+    function handleSubmit() {
+      let res = $('.layui-textarea').val()
+      res = $.trim(res).split(/[\s\n]/)
+      res = res.filter((item) => {
+        return item !== ''
+      })
+      let pageObj = {url: res}
+      $('.loading-box').show()
+      init(pageObj)
+    }
+    
+    function init(data) {
+      $('.contain-result').show()
+      let table = layui.table;
+      //执行渲染
+      table.render({
+        elem: '#testTable', //指定原始表格元素选择器（推荐id选择器）
+        // height: 500, //容器高度
+        skin: 'line', //行边框风格
+        even: true, //开启隔行背景
+        size: 'lg', //小尺寸的表格
+        loading: false,
+        url: '/test',
+        method: 'post',
+        where: data,
+        toolbar: '#toolbarDemo',
+        defaultToolbar: ["filter","exports","print"],
+        parseData: (res)=> {
+          return {
+            "code": res.code, //解析接口状态
+            "msg": res.message, //解析提示文本
+            "count": res.data.length, //解析数据长度
+            'data': res.data
+          }
+        },
+        done: (res, curr, count)=> {
+          $('.loading-box').hide()
+        },
+        error: (error,message)=> {
+          console.log('error',error,message);
+        },
+        cols: [[
+          {field:'pageUrl',title:'页面地址 (时间单位均为秒)', width:265, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'redirectEnd', title:'重定向', width:110, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'domainLookupEnd',title:'DNS解析', width:110, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'connectEnd',title:'TCP完成握手', width:140, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'responseEnd',title:'HTTP请求响应完成', minWidth:40, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'navigationStart',title:'DOM开始加载前时间', minWidth:40, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'domComplete',title:'DOM加载完成', width:140, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'domInteractive',title:'DOM结构解析完成', minWidth:40, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'domLoading',title:'白屏时间', width:120, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'domContentLoadedEventEnd',title:'脚本加载', width:120, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'loadEventEnd',title:'onload事件',width:120, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'padgeLoaded',title:'页面完全加载', minWidth:40, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;",align:'center'},
+          {field:'pageLevel',title:'性能等级', minWidth:40, sort:true, rowspan:2,style:"font-weight:bold;font-size: 16px;color:red",align:'center'}
+        ]],
+      });
+    }
+
+    $('.submit-btn').click(function() {
+      handleSubmit()
+    })
+
+
+  </script>
+</html>

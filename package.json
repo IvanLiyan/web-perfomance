@@ -1,0 +1,26 @@
+{
+  "name": "web-performance",
+  "version": "1.0.0",
+  "description": "性能测试",
+  "main": "app.js",
+  "scripts": {
+    "start": "",
+    "dev": "nodemon app.js",
+    "test": "",
+    "check": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "node-sass": "^6.0.0",
+    "nodemon": "2.0.4",
+    "puppeteer": "^9.1.1",
+    "user-agents": "^1.0.559",
+    "xlsx": "^0.16.8"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.4"
+  }
+}
