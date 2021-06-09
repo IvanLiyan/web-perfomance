@@ -33,7 +33,8 @@ module.exports = async function openBrowser(url) {
       headless: true,//设置无头打开官网报错Error: net::ERR_UNEXPECTED
       ignoreHTTPSErrors: true,
       ignoreDefaultArgs: ['--disable-extensions'],
-      devtools: false,
+      devtools: true,
+      args: ['--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage'],
       pipe: true
     };
 
