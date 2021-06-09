@@ -36,6 +36,8 @@ app.post('/result',async (req, res) => {
 // 测试页面接口
 app.post('/test', async (req, res) => {
   const args = req.body;
+  console.log('5555',args);
+  
   const resultObj = await urlToExcel(args.url)
   console.log('result', resultObj);
   
