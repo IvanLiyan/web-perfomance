@@ -1,9 +1,10 @@
 {
 	"apps": [
 		{
-			"name": "editor",
-			"script": "server/app.js",
+			"name": "ed`itor",
+			"script": "app.js",
 			"instances": "max",
+      "max_restarts": 30, 
 			"exec_mode": "cluster_mode",
 			"env": {
 				"NODE_ENV": "development",
