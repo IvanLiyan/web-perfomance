@@ -39,7 +39,7 @@ app.post('/test', async (req, res) => {
   console.log('5555',args);
   
   const resultObj = await urlToExcel(args.url)
-  console.log('result', resultObj);
+  console.log('result12', resultObj);
   
   res.status(200).send({code: 0, message:'测试完成', data: resultObj})
 })

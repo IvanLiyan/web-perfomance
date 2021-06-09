@@ -38,7 +38,7 @@ module.exports = async function openBrowser(windowsize) {
 
         browser = await puppeteer.launch(options);
         const result = await readFile(browser);
-        console.log('result',result);
+        // console.log('result',result);
         await browser.close()
     } catch (error) {
         console.error(error);
