@@ -22,7 +22,15 @@
       <div class="layui-col-md2 right"></div>
     </div>
     <div class="layui-row content-box">
-      <div class="layui-col-md2 left"></div>
+      <div class="layui-col-md2 left">
+        <div class="text">
+          <p style="font-weight: bold;">页面性能等级说明：</p>
+          <p>完全加载时间 < 0.8s 性能等级为 S</p>  
+          <p>完全加载时间 0.8s - 1.3s 性能等级为 A</p> 
+          <p>完全加载时间 1.3s - 2s 性能等级为 B</p>  
+          <p>完全加载时间 > 2s 性能等级为 C</p>   
+        </div>
+      </div>
       <div class="layui-col-md8 center">
         <div class="center-wrapper">
           <div class="layui-form">
@@ -92,6 +100,11 @@
     .content-box .left,.right {
         height: 300px;
         background: #fff;
+      }
+      .content-box .left .text {
+        padding: 50px 0 0 50px;
+        color: #666;
+        font-size: 14px;
       }
     .content-box .center{
       display: flex;
@@ -219,7 +232,7 @@
       res = res.filter((item) => {
         return item !== ''
       })
-      let pageObj = {'url': res}
+      let pageObj = {url: res}
       $('.loading-box').show()
       init(pageObj)
     }
